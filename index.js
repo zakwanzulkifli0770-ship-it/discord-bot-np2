@@ -21,7 +21,7 @@ client.once('ready', async () => {
   setInterval(() => {
 
     client.user.setPresence({
-      activities: [{ name: statuses[i], type: 0 }],
+      activities: [{ name: statuses[i], type: 4 }],
       status: "online"
     })
 
