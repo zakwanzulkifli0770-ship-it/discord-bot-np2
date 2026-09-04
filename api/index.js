@@ -1,5 +1,6 @@
 require('dotenv').config()
 const { Client, GatewayIntentBits } = require('discord.js')
+const { track } = require('@vercel/analytics/server')
 
 const botClient = new Client({
   intents: [
@@ -14,6 +15,7 @@ module.exports = async function handler(req, res) {
     const token = process.env.TOKEN
 
     if (!token) {
+      await track('bot-startup', { status: 'error', error: 'missing-token' })
       return res.status(500).json({
         ok: false,
         error: 'TOKEN is missing. Add DISCORD_TOKEN or TOKEN in Vercel environment variables.'
@@ -30,6 +32,9 @@ module.exports = async function handler(req, res) {
       ? `Discord bot started as ${botClient.user.tag}`
       : 'Discord bot started successfully'
 
+    // Track bot startup event
+    await track('bot-startup', { status: 'success' })
+
     res.status(200).json({
       ok: true,
       message,
@@ -41,6 +46,8 @@ module.exports = async function handler(req, res) {
     }, 1500)
   } catch (error) {
     console.error(error)
+    // Track bot startup failure
+    await track('bot-startup', { status: 'error', error: error.message })
     return res.status(500).json({
       ok: false,
       error: error.message
