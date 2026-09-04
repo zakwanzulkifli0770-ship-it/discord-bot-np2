@@ -23,6 +23,11 @@ client.once('ready', () => {
   const statuses = ['OWN BY ZYR 👑']
   let i = 0
 
+  client.user.setPresence({
+    activities: [{ name: statuses[0], type: 4 }],
+    status: 'online'
+  })
+
   setInterval(() => {
     client.user.setPresence({
       activities: [{ name: statuses[i], type: 4 }],
@@ -39,6 +44,15 @@ client.on('error', (error) => {
 
 client.on('shardDisconnect', (event, shardId) => {
   console.warn(`Shard ${shardId} disconnected`, event)
+})
+
+process.on('unhandledRejection', (error) => {
+  console.error('Unhandled promise rejection:', error)
+})
+
+process.on('uncaughtException', (error) => {
+  console.error('Uncaught exception:', error)
+  process.exit(1)
 })
 
 process.on('SIGINT', async () => {
