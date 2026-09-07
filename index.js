@@ -20,17 +20,17 @@ const client = new Client({
 client.once('ready', () => {
   console.log(`✅ Bot online sebagai ${client.user.tag}`)
 
-  const statuses = ['OWN BY ZYR 👑']
+  const statuses = ['']
   let i = 0
 
   client.user.setPresence({
-    activities: [{ name: statuses[0], type: 4 }],
+    activities: [{ name: statuses[0], type: 1 }],
     status: 'online'
   })
 
   setInterval(() => {
     client.user.setPresence({
-      activities: [{ name: statuses[i], type: 4 }],
+      activities: [{ name: statuses[i], type: 1 }],
       status: 'online'
     })
 
