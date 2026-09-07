@@ -24,13 +24,13 @@ client.once('ready', () => {
   let i = 0
 
   client.user.setPresence({
-    activities: [{ name: statuses[0], type: 1 }],
+    activities: [{ name: statuses[0], type: 4 }],
     status: 'online'
   })
 
   setInterval(() => {
     client.user.setPresence({
-      activities: [{ name: statuses[i], type: 1 }],
+      activities: [{ name: statuses[i], type: 4 }],
       status: 'online'
     })
 
